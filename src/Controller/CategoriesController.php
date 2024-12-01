@@ -11,6 +11,7 @@ use App\Entity\Categories;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class CategoriesController extends AbstractController
 {
@@ -70,6 +71,24 @@ class CategoriesController extends AbstractController
 
         $jsonCategories = $serializer->serialize($categorie, 'json');
         return new JsonResponse($jsonCategories, Response::HTTP_CREATED, [], true);
+   }
+
+   
+    //PUT
+    #[Route('/api/categories/{id}', name:"updateCategories", methods: ['PUT'])]
+    public function updateCategories(int $id,Request $request, SerializerInterface $serializer, EntityManagerInterface $em, CategoriesRepository $categoriesRepository ): JsonResponse 
+    {
+        $currentCategorie = $categoriesRepository->find($id);
+        $updateCategorie = $serializer->deserialize($request->getContent(), Categories::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $currentCategorie]);
+        if (empty($updateCategorie->getNom())) {
+            return new JsonResponse(['erreur' => 'La requête doit comporter une clé \'nom\''], Response::HTTP_BAD_REQUEST);
+        }
+        if(strlen($updateCategorie->getNom())>255){
+            return new JsonResponse(['erreur' => 'La taille de \'nom\' ne doit pas dépasser 255 caractères.'],Response::HTTP_BAD_REQUEST);
+        }
+        $em->persist($updateCategorie);
+        $em->flush();
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
    }
    
 
