@@ -25,6 +25,7 @@ class Produits
     private ?float $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?categories $categorie = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

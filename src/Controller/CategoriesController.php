@@ -32,15 +32,6 @@ class CategoriesController extends AbstractController
         if (!$categorie) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
         }
-        // Verifiez si des produits sont associes
-        $produitsAssocies = $categorie->getProduits();
-        if (count($produitsAssocies) > 0) {
-            $data = [
-                'erreur' => 'Impossible de supprimer cette catégorie, des produits y sont associés.',
-                'produits_associes' => $serializer->normalize($produitsAssocies, 'json')
-            ];
-            return new JsonResponse($data, Response::HTTP_BAD_REQUEST);
-        }
         // Supprimez la categorie
         $em->remove($categorie);
         $em->flush();
