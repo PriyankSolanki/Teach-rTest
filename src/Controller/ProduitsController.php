@@ -111,6 +111,9 @@ class ProduitsController extends AbstractController
     public function updateProduits(int $id,Request $request, SerializerInterface $serializer, EntityManagerInterface $em, ProduitsRepository $produitsRepository, CategoriesRepository $categoriesRepository ): JsonResponse 
     {
         $currentProduit = $produitsRepository->find($id);
+        if (!$currentProduit) {
+            return new JsonResponse(['erreur' => 'Produit non trouvé.'], Response::HTTP_NOT_FOUND);
+        }
         $updateProduit = $serializer->deserialize($request->getContent(), Produits::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $currentProduit]);
 
         $data = $request->getContent();
@@ -121,6 +124,10 @@ class ProduitsController extends AbstractController
             if (empty($decodedData[$key])) {
                 return new JsonResponse(['erreur' => 'La requête doit comporter les clés [\'nom\', \'description\', \'prix\']'], Response::HTTP_BAD_REQUEST);
             }
+        }
+
+        if (!empty($decodedData['dateCreation'])) {
+            return new JsonResponse(['erreur' => 'Vous ne pouvez pas modifier la date de création.'], Response::HTTP_BAD_REQUEST);
         }
         
         //gestion type string
