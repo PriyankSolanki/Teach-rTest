@@ -7,8 +7,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CategoriesRepository;
+use App\Entity\Categories;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoriesController extends AbstractController
 {
@@ -42,7 +44,33 @@ class CategoriesController extends AbstractController
         $em->remove($categorie);
         $em->flush();
 
-        return new JsonResponse(['message' => 'Catégorie supprimée avec succès.'], 200);
+        return new JsonResponse(['message' => 'Catégorie supprimée avec succès.'], Response::HTTP_OK);
         
     }
+
+
+    //POST
+    #[Route('/api/categories', name:"createCategories", methods: ['POST'])]
+    public function createCategories(Request $request, SerializerInterface $serializer, EntityManagerInterface $em): JsonResponse 
+    {
+        $data = $request->getContent();
+        $decodedData = json_decode($data, true);
+
+        if (empty($decodedData['nom'])) {
+            return new JsonResponse(['erreur' => 'La requête doit comporter une clé \'nom\''], Response::HTTP_BAD_REQUEST);
+        }
+
+        $nomLength = strlen($decodedData['nom']);
+        if ($nomLength > 255 || $nomLength < 1) {
+            return new JsonResponse(['erreur' => 'La taille de \'nom\' ne doit pas dépasser 255 caractères.'],Response::HTTP_BAD_REQUEST);
+        }
+        $categorie = $serializer->deserialize($data, Categories::class, 'json');
+        $em->persist($categorie);
+        $em->flush();
+
+        $jsonCategories = $serializer->serialize($categorie, 'json');
+        return new JsonResponse($jsonCategories, Response::HTTP_CREATED, [], true);
+   }
+   
+
 }
