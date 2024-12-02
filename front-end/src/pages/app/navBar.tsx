@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 interface NavBarProps {
     view: string;
-    setView: (view: string) => void; // Fonction qui prend une chaîne de caractères en paramètre
+    setView: (view: string) => void; 
   }
 const NavBar: React.FC<NavBarProps> = ({view, setView}) => {
   return (

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { fetchCategories } from "./api/apiCategories";
+import { fetchCategories } from "../../api/apiCategories";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
 import 'primeicons/primeicons.css';
 
 const CategoriesTable = () => {
@@ -15,7 +14,6 @@ const CategoriesTable = () => {
         try {
           const data = await fetchCategories();
           setCategories(data); 
-          console.log(data);
           setLoading(false);
         } catch (err) {
           setError("Impossible de récupérer les produits.");
