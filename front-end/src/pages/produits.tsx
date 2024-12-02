@@ -23,19 +23,32 @@ const ProductTable = () => {
       getProducts();
   }, []);
 
-  if (loading) return <div>Chargement...</div>;
+  if (loading) return <div></div>;
   if (error) return <div>{error}</div>;
 
+  const addProduits = () => {
+    alert(``);
+  };
+
+  const updateProduits = () => {
+    alert(``);
+  };
+
+  const deleteProduits = () => {
+    alert(``);
+  };
+
   return (
-    <><DataTable className="DataTable DataTableProducts" value={products} filterDisplay="row" dataKey="id" paginator rows={10} loading={loading}>
+    <><div className="flex justify-end mb-4"><button className="add addProduits" onClick={() => addProduits()}><i className="pi pi-plus"style={{ fontSize: '1.4rem', marginRight:"0.7rem" }}/>Ajouter un produit</button></div>
+    <DataTable className="DataTable DataTableProducts" value={products} filterDisplay="row" dataKey="id" paginator rows={5} loading={loading}>
           <Column field="id" header="Id" />
           <Column field="nom" header="Nom" filter filterPlaceholder="Nom du produit" />
           <Column field="description" header="Description" />
           <Column field="prix" header="Prix" body={(rowData) => rowData.prix + "€"} />
           <Column header="Catégorie" body={(rowData) => rowData.categorie && rowData.categorie.nom ? rowData.categorie.nom : 'Aucune catégorie'} />
           <Column field="dateCreation" header="Date de création" body={(rowData) => new Date(rowData.dateCreation).toLocaleDateString("fr-FR")} />
-          <Column header="Modifier" body={"Modifier"} />
-          <Column header="Supprimer" body={"Supprimer"} />
+          <Column header="" body={(rowData) => (<button className="updateButton" onClick={() => updateProduits()}><i className="pi pi-pencil" style={{ fontSize: '1.5rem' }}></i></button>)} />
+          <Column header="" body={(rowData) => (<button className="deleteButton" onClick={() => deleteProduits()}><i className="pi pi-trash" style={{ fontSize: '1.5rem' }}></i></button>)} />
       </DataTable></>
   );
 };

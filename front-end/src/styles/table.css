@@ -11,3 +11,44 @@
 .DataTableCategories{
     border:2px #ff724f solid;
 }
+
+.add {
+    display: flex;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+    padding: 20px;
+    background-color: rgb(8, 156, 8);
+    color: white;
+    align-items: center;
+    margin-right: 8rem;
+}
+
+.add:hover{
+    background-color: rgb(23, 187, 23);
+    transition: background-color 0.9s;
+}
+
+.updateButton{
+    background-color: #219cff;
+    border: none;
+    border-radius: 30px;
+    padding: 0.9rem;
+}
+
+.updateButton:hover{
+    background-color: #219bff65;
+    transition: background-color 0.5s;
+}
+
+.deleteButton{
+    background-color: #fe3b3b;
+    border: none;
+    border-radius: 30px;
+    padding: 0.9rem;
+}
+
+.deleteButton:hover{
+    background-color: #fe3b3b65;
+    transition: background-color 0.5s;
+}

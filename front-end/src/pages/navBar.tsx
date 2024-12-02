@@ -5,8 +5,8 @@ interface NavBarProps {
   }
 const NavBar: React.FC<NavBarProps> = ({view, setView}) => {
   return (
-        <div className="container mx-auto p-4">
-      <div className="nav flex space-x-4 mb-6">
+        <div className="container mx-auto">
+      <div className="nav flex">
         <button
           className={`buttonProduits ${view === "produits" ? "bg-primary text-white" : ""}`}
           onClick={() => setView("produits")}
