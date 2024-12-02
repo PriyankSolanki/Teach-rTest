@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CategoriesTable from "./categoriesTable";
 import AddCategorieDialog from "./addCategoriesDialog";
 import UpdateCategorieDialog from "./updateCategorieDialog";
+import DeleteCategoriesDialog from "./deleteCategoriesDialog";
 
 
 const CategoriesManager = () => {
@@ -35,13 +36,13 @@ const CategoriesManager = () => {
       {/* Bouton dans le tableau */}
       <CategoriesTable openAddDialog={openAddDialog} openUpdateDialog={openUpdateDialog} openDeleteDialog={openDeleteDialog} setCategories={setCategories}  categories={categories}/>
 
-      
+      {/* Dialogue dans un autre composant */}
       <AddCategorieDialog visible={addDialog} closeDialog={closeAddDialog} setCategories={setCategories} />
       
       {updateDialog && selectedCategorieUpdate&&(<UpdateCategorieDialog visible={updateDialog} selectedCategorie={selectedCategorieUpdate} closeDialog={closeUpdateDialog} setCategories={setCategories} />)}
-{/* Dialogue dans un autre composant 
-      {selectedProduitDelete &&(<DeleteProduitDialog visible={deleteDialog} selectedProduit={selectedProduitDelete} closeDialog={closeDeleteDialog} setProduits={setProduits} />)}
-    */}</div>
+
+      {selectedCategorieDelete &&(<DeleteCategoriesDialog visible={deleteDialog} selectedCategorie={selectedCategorieDelete} closeDialog={closeDeleteDialog} setCategories={setCategories} />)}
+    </div>
   );
 };
 

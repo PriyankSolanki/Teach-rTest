@@ -3,7 +3,7 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
-import { fetchCategories } from "@/api/apiCategories";
+import { deleteCategories, fetchCategories } from "@/api/apiCategories";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { addProduits, deleteProduits, fetchProduits } from "@/api/apiProduits";
 import axios from "axios";
@@ -11,35 +11,35 @@ import { Toast } from "primereact/toast";
 
 
 
-interface ProduitTableProps {
+interface CategorieTableProps {
     closeDialog: () => void; 
     visible:boolean;
-    setProduits: (data:any) => void;
-    selectedProduit:any;
+    setCategories: (data:any) => void;
+    selectedCategorie:any;
 }
 
-const deleteProduitDialog : React.FC<ProduitTableProps> = ({ visible, closeDialog, setProduits, selectedProduit }) => {
-  const [produit, setProduct] = useState({ nom: selectedProduit.nom, description: selectedProduit.description, prix:selectedProduit.prix, idCategorie: selectedProduit.categorie?.id || null });
+const deleteCategorieDialog : React.FC<CategorieTableProps> = ({ visible, closeDialog, setCategories, selectedCategorie }) => {
+  const [categorie, setCategorie] = useState({ nom: selectedCategorie.nom});
   const toast = useRef<Toast>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const handleDeleteProduct = async () => { 
+  const handleDeleteCategorie = async () => { 
         try {
-            const response = await deleteProduits(selectedProduit.id);
+            const response = await deleteCategories(selectedCategorie.id);
             if(toast.current){
                 toast.current?.show({
                     severity: "success",
                     summary: "Succès",
-                    detail: "Produit supprimé avec succès !",
+                    detail: "Catégorie supprimé avec succès !",
                   });
             }
             try {
-                const data = await fetchProduits();
-                setProduits(data); 
+                const data = await fetchCategories();
+                setCategories(data); 
                 setLoading(false);
               } catch (err) {
-                setError("Impossible de récupérer les produits.");
+                setError("Impossible de récupérer les catégories.");
                 setLoading(false);
               }
           } catch (error : unknown) {
@@ -69,29 +69,17 @@ const deleteProduitDialog : React.FC<ProduitTableProps> = ({ visible, closeDialo
 
   return (<>
     <Toast ref={toast} />
-    <Dialog header="Supprimer un produit" visible={visible}  style={{ width: "50vw" }} onHide={closeDialog}>
+    <Dialog header="Supprimer une catégorie" visible={visible}  style={{ width: "50vw" }} onHide={closeDialog}>
     <p style={{color:"red"}} id="errorMessage"></p>
       <div className="p-fluid">
         <div className="field">
-            <p>Nom : <strong>{selectedProduit.nom}</strong></p>
-        </div>
-        <div className="field">
-            <p>Description : <strong>{selectedProduit.description}</strong></p>
-        </div>
-        <div className="field">
-            <p>Prix : <strong>{selectedProduit.prix} €</strong></p>
-        </div>
-        <div className="field">
-            <p>Catégorie : <strong>{selectedProduit.categorie?.nom|| "Aucune catégorie"}</strong></p>
-        </div>
-        <div className="field">
-            <p>Date de création : <strong>{new Date(selectedProduit.dateCreation).toLocaleDateString("fr-FR")}</strong></p>
+            <p>Nom de la catégorie : <strong>{selectedCategorie.nom}</strong></p>
         </div>
       </div>
         <Button label="Annuler" className="p-button-text" style={{ color: "red" }} onClick={closeDialog} />
-        <Button label="Supprimer" className="p-button-danger" onClick={handleDeleteProduct} />
+        <Button label="Supprimer" className="p-button-danger" onClick={handleDeleteCategorie} />
     </Dialog></>
   );
 };
 
-export default deleteProduitDialog;
+export default deleteCategorieDialog;
