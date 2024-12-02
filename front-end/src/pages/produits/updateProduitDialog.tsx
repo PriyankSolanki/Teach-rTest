@@ -11,14 +11,14 @@ import { Toast } from "primereact/toast";
 
 
 
-interface ProductTableProps {
+interface ProduitTableProps {
     closeDialog: () => void; 
     visible:boolean;
     setProduits: (data:any) => void;
     selectedProduit:any;
 }
 
-const UpdateProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialog, setProduits, selectedProduit }) => {
+const UpdateProduitDialog : React.FC<ProduitTableProps> = ({ visible, closeDialog, setProduits, selectedProduit }) => {
   const [produit, setProduct] = useState({ nom: "", description: "", prix:0, idCategorie: 0 });
   const [categories, setCategories] = useState<{ nom: string; id: number}[]>([]); 
   const [loading, setLoading] = useState(true);
@@ -148,7 +148,7 @@ const UpdateProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialo
       <div className="p-fluid">
         <div className="field">
           <label htmlFor="nom">Nom</label>
-          <input id="nom" type="text"  value={selectedProduit.nom}  onChange={(e) => setProduct({ ...produit, nom: e.target.value })} className="p-inputtext p-component"  />
+          <input id="nom" type="text"  value={produit.nom}  onChange={(e) => setProduct({ ...produit, nom: e.target.value })} className="p-inputtext p-component"  />
         </div>
         <div className="field">
           <label htmlFor="description">Description</label>
@@ -175,4 +175,4 @@ const UpdateProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialo
   );
 };
 
-export default UpdateProductDialog;
+export default UpdateProduitDialog;

@@ -1,24 +1,26 @@
-import React, {useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import axios from "axios";
 import { Toast } from "primereact/toast";
-import { addCategories, fetchCategories } from "@/api/apiCategories";
+import { fetchCategories, updateCategories } from "@/api/apiCategories";
+
 
 
 interface CategorieTableProps {
     closeDialog: () => void; 
     visible:boolean;
     setCategories: (data:any) => void;
+    selectedCategorie:any;
 }
 
-const AddCategorieDialog : React.FC<CategorieTableProps> = ({ visible, closeDialog, setCategories }) => {
-  const [categorie, setCategorie] = useState({ nom: ""});
+const UpdateCategorieDialog : React.FC<CategorieTableProps> = ({ visible, closeDialog, setCategories, selectedCategorie }) => {
+  const [categorie, setCategorie] = useState({ nom: selectedCategorie.nom || ""});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const toast = useRef<Toast>(null);
 
-  const handleAddCategorie = async () => { 
+  const handleUpdateCategorie = async () => { 
     
     if(categorie.nom == "") {
         const messageError = document.getElementById("errorMessage");
@@ -26,7 +28,7 @@ const AddCategorieDialog : React.FC<CategorieTableProps> = ({ visible, closeDial
             messageError.textContent = "Erreur : Le nom de la catégorie est requis";
             messageError.classList.add("visible"); 
         }
-    } else if(categorie.nom.length>255) {
+    }else if(categorie.nom.length>255) {
         const messageError = document.getElementById("errorMessage");
         if (messageError) {
             messageError.textContent = "Erreur : Le nom ne doit pas dépasser 255 caractères";
@@ -38,13 +40,12 @@ const AddCategorieDialog : React.FC<CategorieTableProps> = ({ visible, closeDial
             messageError.textContent = "";
         }
         try {
-            const response = await addCategories(categorie);
-            setCategorie({nom: ""});
+            const response = await updateCategories(selectedCategorie.id, categorie);
             if(toast.current){
                 toast.current?.show({
                     severity: "success",
                     summary: "Succès",
-                    detail: "Catégorie ajouté avec succès !",
+                    detail: "Catégorie modifié avec succès !",
                   });
             }
             
@@ -83,7 +84,7 @@ const AddCategorieDialog : React.FC<CategorieTableProps> = ({ visible, closeDial
 
   return (<>
     <Toast ref={toast} />
-    <Dialog header="Ajouter une catégorie" visible={visible}  style={{ width: "50vw" }} onHide={closeDialog}>
+    <Dialog header="Modifier une catégorie" visible={visible}  style={{ width: "50vw" }} onHide={closeDialog}>
     <p style={{color:"red"}} id="errorMessage"></p>
       <div className="p-fluid">
         <div className="field">
@@ -92,9 +93,9 @@ const AddCategorieDialog : React.FC<CategorieTableProps> = ({ visible, closeDial
         </div>
       </div>
         <Button label="Annuler" className="p-button-text" onClick={closeDialog} />
-        <Button label="Ajouter" className="p-button-primary" onClick={handleAddCategorie} />
+        <Button label="Modifier" className="p-button-primary" onClick={handleUpdateCategorie} />
     </Dialog></>
   );
 };
 
-export default AddCategorieDialog;
+export default UpdateCategorieDialog;
