@@ -4,7 +4,7 @@
     justify-content: center;
 
 }
-.nav .button{
+.nav button{
     margin-inline: 70px;
     font-size: x-large;
     border: none;
@@ -12,7 +12,11 @@
     padding: 20px;
 }
 
-.nav button:hover{
+.nav .buttonProduits:hover{
     background-color: #219cff;
+    transition: background-color 0.9s, box-shadow 0.3s;
+}
+.nav .buttonCategories:hover{
+    background-color: #ff724f;
     transition: background-color 0.9s, box-shadow 0.3s;
 }

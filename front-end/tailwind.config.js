@@ -12,7 +12,12 @@ module.exports = {
     extend: {  
       fontFamily: {
       sans: ['Nunito', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-    },},
+    },
+    colors: {
+      primary: "#219cff", 
+      secondary : "#ff724f"
+    },
+  },
   },
   plugins: [],
 }

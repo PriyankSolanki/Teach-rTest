@@ -27,7 +27,7 @@ const ProductTable = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <><DataTable className="DataTable" value={products} filterDisplay="row" dataKey="id" paginator rows={10} loading={loading}>
+    <><DataTable className="DataTable DataTableProducts" value={products} filterDisplay="row" dataKey="id" paginator rows={10} loading={loading}>
           <Column field="id" header="Id" />
           <Column field="nom" header="Nom" filter filterPlaceholder="Nom du produit" />
           <Column field="description" header="Description" />
