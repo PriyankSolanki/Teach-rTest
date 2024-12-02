@@ -1,0 +1,18 @@
+.nav{
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+
+}
+.nav .button{
+    margin-inline: 70px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+    padding: 20px;
+}
+
+.nav button:hover{
+    background-color: #219cff;
+    transition: background-color 0.9s, box-shadow 0.3s;
+}

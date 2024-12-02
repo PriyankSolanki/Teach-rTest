@@ -1,0 +1,12 @@
+
+.logo{
+    background: linear-gradient(to right, #004167, #015b83);
+    opacity: 0.9;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.logo img{
+        width: 300px;
+}
