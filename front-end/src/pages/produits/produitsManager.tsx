@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProduitsTable from "./produitsTable";
 import AddProduitDialog from "./addProduitDialog";
 import UpdateProduitDialog from "./updateProduitDialog";
+import DeleteProduitDialog from "./deleteProduitDialog";
 
 const ProduitsManager = () => {
     //produits
@@ -12,15 +13,19 @@ const ProduitsManager = () => {
     const closeAddDialog = () => setAddDialog(false); 
     //update
     const [updateDialog, setUpdateDialog] = useState(false);
-    const [selectedProduit, setSelectedProduit] = useState(null);
+    const [selectedProduitUpdate, setSelectedProduitUpdate] = useState(null);
     const openUpdateDialog = (produit:any) => {
         setUpdateDialog(true);
-        setSelectedProduit(produit);
+        setSelectedProduitUpdate(produit);
     }
-    const closeUpdateDialog = () => setUpdateDialog(false);
+    const closeUpdateDialog = () => setUpdateDialog(false)
     //delete
     const [deleteDialog, setDeleteDialog] = useState(false);
-    const openDeleteDialog = () => setDeleteDialog(true);
+    const [selectedProduitDelete, setSelectedProduitDelete] = useState(null);
+    const openDeleteDialog = (produit:any) => {
+        setDeleteDialog(true);
+        setSelectedProduitDelete(produit);
+    }
     const closeDeleteDialog = () => setDeleteDialog(false);
     
     
@@ -28,11 +33,13 @@ const ProduitsManager = () => {
   return (
     <div>
       {/* Bouton dans le tableau */}
-      <ProduitsTable openAddDialog={openAddDialog} openUpdateDialog={openUpdateDialog} setProduits={setProduits}  produits={produits}/>
+      <ProduitsTable openAddDialog={openAddDialog} openUpdateDialog={openUpdateDialog} openDeleteDialog={openDeleteDialog} setProduits={setProduits}  produits={produits}/>
 
       {/* Dialogue dans un autre composant */}
       <AddProduitDialog visible={addDialog} closeDialog={closeAddDialog} setProduits={setProduits} />
-      {selectedProduit &&(<UpdateProduitDialog visible={updateDialog} selectedProduit={selectedProduit} closeDialog={closeUpdateDialog} setProduits={setProduits} />)}
+      {updateDialog && selectedProduitUpdate&&(<UpdateProduitDialog visible={updateDialog} selectedProduit={selectedProduitUpdate} closeDialog={closeUpdateDialog} setProduits={setProduits} />)}
+
+      {selectedProduitDelete &&(<DeleteProduitDialog visible={deleteDialog} selectedProduit={selectedProduitDelete} closeDialog={closeDeleteDialog} setProduits={setProduits} />)}
     </div>
   );
 };

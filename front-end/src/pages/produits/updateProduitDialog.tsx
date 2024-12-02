@@ -19,13 +19,19 @@ interface ProductTableProps {
 }
 
 const UpdateProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialog, setProduits, selectedProduit }) => {
-  const [produit, setProduct] = useState({ nom: selectedProduit.nom, description: selectedProduit.description, prix:selectedProduit.prix, idCategorie: selectedProduit.categorie?.id || null });
+  const [produit, setProduct] = useState({ nom: "", description: "", prix:0, idCategorie: 0 });
   const [categories, setCategories] = useState<{ nom: string; id: number}[]>([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const toast = useRef<Toast>(null);
 
   useEffect(() => {
+    setProduct({
+        nom: selectedProduit.nom || "",
+        description: selectedProduit.description || "",
+        prix: selectedProduit.prix || 0,
+        idCategorie: selectedProduit.categorie?.id || null,
+      });
     
     const loadCategories = async () => {
       try {
@@ -130,7 +136,7 @@ const UpdateProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialo
       <div className="p-fluid">
         <div className="field">
           <label htmlFor="nom">Nom</label>
-          <input id="nom" type="text"  value={produit.nom}  onChange={(e) => setProduct({ ...produit, nom: e.target.value })} className="p-inputtext p-component"  />
+          <input id="nom" type="text"  value={selectedProduit.nom}  onChange={(e) => setProduct({ ...produit, nom: e.target.value })} className="p-inputtext p-component"  />
         </div>
         <div className="field">
           <label htmlFor="description">Description</label>
