@@ -11,13 +11,13 @@ import { Toast } from "primereact/toast";
 
 
 
-interface ProductTableProps {
+interface ProduitTableProps {
     closeDialog: () => void; 
     visible:boolean;
     setProduits: (data:any) => void;
 }
 
-const AddProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialog, setProduits }) => {
+const AddProductDialog : React.FC<ProduitTableProps> = ({ visible, closeDialog, setProduits }) => {
   const [produit, setProduct] = useState({ nom: "", description: "", prix: 0.00, idCategorie: 0 });
   const [categories, setCategories] = useState<{ nom: string; id: number}[]>([]); 
   const [loading, setLoading] = useState(true);
@@ -62,6 +62,18 @@ const AddProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialog, 
         const messageError = document.getElementById("errorMessage");
         if (messageError) {
             messageError.textContent = "Erreur : La description du produit est requise";
+            messageError.classList.add("visible"); 
+        }
+    }else if(produit.description.length>255) {
+        const messageError = document.getElementById("errorMessage");
+        if (messageError) {
+            messageError.textContent = "Erreur : La description ne doit pas dépasser 255 caractères";
+            messageError.classList.add("visible"); 
+        }
+    } else if(produit.nom.length>255) {
+        const messageError = document.getElementById("errorMessage");
+        if (messageError) {
+            messageError.textContent = "Erreur : Le nom ne doit pas dépasser 255 caractères";
             messageError.classList.add("visible"); 
         }
     } else if(produit.prix<=0) {

@@ -37,9 +37,9 @@ const ProduitsManager = () => {
 
       {/* Dialogue dans un autre composant */}
       <AddProduitDialog visible={addDialog} closeDialog={closeAddDialog} setProduits={setProduits} />
-      {updateDialog && selectedProduitUpdate&&(<UpdateProduitDialog visible={updateDialog} selectedProduit={selectedProduitUpdate} closeDialog={closeUpdateDialog} setProduits={setProduits} />)}
+      {updateDialog && selectedProduitUpdate &&(<UpdateProduitDialog visible={updateDialog} selectedProduit={selectedProduitUpdate} closeDialog={closeUpdateDialog} setProduits={setProduits} />)}
 
-      {selectedProduitDelete &&(<DeleteProduitDialog visible={deleteDialog} selectedProduit={selectedProduitDelete} closeDialog={closeDeleteDialog} setProduits={setProduits} />)}
+      {selectedProduitDelete && (<DeleteProduitDialog visible={deleteDialog} selectedProduit={selectedProduitDelete} closeDialog={closeDeleteDialog} setProduits={setProduits} />)}
     </div>
   );
 };

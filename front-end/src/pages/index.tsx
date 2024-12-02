@@ -2,7 +2,7 @@ import {useState} from 'react';
 import ProduitsManager from "./produits/produitsManager";
 import NavBar from './app/navBar';
 import Logo from './app/logo';
-import CategoriesTable from './categories/categoriesTable';
+import CategoriesManager from './categories/categoriesManager';
 
 export default function Home() {
   const [view, setView] = useState("produits");
@@ -12,7 +12,7 @@ export default function Home() {
       <Logo/>
       <NavBar view={view} setView={setView}/>
       {view === "produits" && <ProduitsManager />}
-      {view === "categories" && <CategoriesTable />}
+      {view === "categories" && <CategoriesManager />}
     </>
   );
 }

@@ -65,6 +65,18 @@ const UpdateProductDialog : React.FC<ProductTableProps> = ({ visible, closeDialo
             messageError.textContent = "Erreur : Le nom du produit est requis";
             messageError.classList.add("visible"); 
         }
+    }else if(produit.description.length>255) {
+        const messageError = document.getElementById("errorMessage");
+        if (messageError) {
+            messageError.textContent = "Erreur : La description ne doit pas dépasser 255 caractères";
+            messageError.classList.add("visible"); 
+        }
+    } else if(produit.nom.length>255) {
+        const messageError = document.getElementById("errorMessage");
+        if (messageError) {
+            messageError.textContent = "Erreur : Le nom ne doit pas dépasser 255 caractères";
+            messageError.classList.add("visible"); 
+        }
     }else if(produit.description == "") {
         const messageError = document.getElementById("errorMessage");
         if (messageError) {
