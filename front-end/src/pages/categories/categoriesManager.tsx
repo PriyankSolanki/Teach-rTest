@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CategoriesTable from "./categoriesTable";
+import AddCategorieDialog from "./addCategoriesDialog";
 
 
 const CategoriesManager = () => {
@@ -20,9 +21,9 @@ const CategoriesManager = () => {
     //delete
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [selectedCategorieDelete, setSelectedCategorieDelete] = useState(null);
-    const openDeleteDialog = () => {
+    const openDeleteDialog = (categorie:any) => {
         setDeleteDialog(true);
-        setSelectedCategorieDelete(null);
+        setSelectedCategorieDelete(categorie);
     }
     const closeDeleteDialog = () => setDeleteDialog(false);
     
@@ -33,8 +34,9 @@ const CategoriesManager = () => {
       {/* Bouton dans le tableau */}
       <CategoriesTable openAddDialog={openAddDialog} openUpdateDialog={openUpdateDialog} openDeleteDialog={openDeleteDialog} setCategories={setCategories}  categories={categories}/>
 
+      
+      <AddCategorieDialog visible={addDialog} closeDialog={closeAddDialog} setCategories={setCategories} />
       {/* Dialogue dans un autre composant 
-      <AddProduitDialog visible={addDialog} closeDialog={closeAddDialog} setProduits={setProduits} />
       {updateDialog && selectedProduitUpdate&&(<UpdateProduitDialog visible={updateDialog} selectedProduit={selectedProduitUpdate} closeDialog={closeUpdateDialog} setProduits={setProduits} />)}
 
       {selectedProduitDelete &&(<DeleteProduitDialog visible={deleteDialog} selectedProduit={selectedProduitDelete} closeDialog={closeDeleteDialog} setProduits={setProduits} />)}

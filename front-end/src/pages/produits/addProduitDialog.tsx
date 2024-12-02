@@ -17,7 +17,7 @@ interface ProduitTableProps {
     setProduits: (data:any) => void;
 }
 
-const AddProductDialog : React.FC<ProduitTableProps> = ({ visible, closeDialog, setProduits }) => {
+const AddProduitDialog : React.FC<ProduitTableProps> = ({ visible, closeDialog, setProduits }) => {
   const [produit, setProduct] = useState({ nom: "", description: "", prix: 0.00, idCategorie: 0 });
   const [categories, setCategories] = useState<{ nom: string; id: number}[]>([]); 
   const [loading, setLoading] = useState(true);
@@ -174,4 +174,4 @@ const AddProductDialog : React.FC<ProduitTableProps> = ({ visible, closeDialog, 
   );
 };
 
-export default AddProductDialog;
+export default AddProduitDialog;
