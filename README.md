@@ -13,7 +13,7 @@ Ce projet combine un back-end développé avec Symfony et un front-end développ
 ## 🔧 Installation
 
 
-1. Ouvrez le fichier `back-end/.env.local`, dans la variable `DATABASE_URL`, remplacer "<password>" par :
+1. Ouvrez le fichier `back-end/.env.local`, dans la variable `DATABASE_URL`, remplacer `<password>` par :
    ```env
    AVNS_GIsAndmRFN9V9lhMXRy
    ```
