@@ -12,25 +12,19 @@ Ce projet combine un back-end développé avec Symfony et un front-end développ
 
 ## 🔧 Installation
 
-
-1. Ouvrez le fichier `back-end/.env.local`, dans la variable `DATABASE_URL`, remplacer `<password>` par :
-   ```env
-   AVNS_GIsAndmRFN9V9lhMXRy
-   ```
-
-2. Ouvrez un terminal à la racine du projet et exécuter les commandes suivantes : 
-```env
+ 1. Ouvrez un terminal à la racine du projet et exécuter les commandes suivantes : 
+ ```env
  - cd back-end 
  - composer install
  - symfony server:start
  ```
- 3. Ouvrez un nouveau terminal à la racine du projet et exécuter les commandes suivantes : 
+ 2. Ouvrez un nouveau terminal à la racine du projet et exécuter les commandes suivantes : 
  ```env
  - cd front-end 
  - npm install
  - npm run dev
  ```
- 4. Lancer un navigateur web et aller à l'url suivant : 
+ 3. Lancer un navigateur web et aller à l'url suivant : 
   ```env
  - http://localhost:3000
  ```
