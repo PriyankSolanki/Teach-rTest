@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchProduits } from "../../api/apiProduits";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
