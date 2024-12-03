@@ -37,7 +37,7 @@ const UpdateProduitDialog : React.FC<ProduitTableProps> = ({ visible, closeDialo
       try {
         var data = await fetchCategories(); 
         data = [{
-            id: "null", 
+            id: 0, 
             nom: "Aucune catégorie",
           }].concat(data);
         const options = [
